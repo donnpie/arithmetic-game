@@ -21,7 +21,7 @@ function clickBtn1(e){
     
     let elements = e.target.elements
     //console.log(elements)
-    const timeLimit = elements.namedItem('time').value
+    let timeLimit = elements.namedItem('time').value
     //console.log(timeLimit)
     if (!validateField(timeLimit, "Please enter a value for the time limit")) {
         return
@@ -30,7 +30,7 @@ function clickBtn1(e){
     const allowAdd = elements.namedItem('addition').checked
     //console.log(allowAdd)
     if (allowAdd) {
-        const addLimit = elements.namedItem('addition-limit').value
+        let addLimit = elements.namedItem('addition-limit').value
         //console.log(addLimit)
         if (!validateField(addLimit, "Please enter a value for the addition limit")) {
             return
@@ -41,7 +41,7 @@ function clickBtn1(e){
     const allowSubtract = elements.namedItem('subtraction').checked
     //console.log(allowSubtract)
     if (allowSubtract) {
-        const subtractLimit = elements.namedItem('subtraction-limit').value
+        let subtractLimit = elements.namedItem('subtraction-limit').value
         //console.log(subtractLimit)
         if (!validateField(subtractLimit, "Please enter a value for the subtraction limit")) {
             return
@@ -52,7 +52,7 @@ function clickBtn1(e){
     const allowMultiply = elements.namedItem('multiplication').checked
     //console.log(allowMultiply)
     if (allowMultiply) {
-        const multiplyLimit = elements.namedItem('multiplication-limit').value
+        let multiplyLimit = elements.namedItem('multiplication-limit').value
         //console.log(multiplyLimit)
         if (!validateField(multiplyLimit, "Please enter a value for the multiplication limit")) {
             return
@@ -89,7 +89,21 @@ function clickBtn1(e){
     document.getElementById('submit-button').style.display = 'none'
     
 
-    //Show the timer and let it count down - can use elements,namedItem for this
+    //Show the timer and let it count down
+    timeLimit = parseInt(timeLimit)
+    //console.log(timeLimit)
+    let timer = document.getElementById('timer')
+    let interval
+    interval = setInterval(() => {
+        timer.innerText = "Time remaining: " + timeLimit
+        timeLimit--
+        if (timeLimit < 0) {
+            //console.log("Timer has reached 0")
+            clearInterval(interval);
+            //clearTimeout();
+        }
+    }, 1000);
+
     //Show the calculation and allow the user to enter answer - repeat until time is up
     //When time is up, show the postGame screen
 
@@ -170,3 +184,4 @@ function validateField(field, message) {
 //https://www.w3schools.com/tags/att_input_value.asp
 //https://developer.mozilla.org/en-US/docs/Web/API/HTMLCollection
 //https://stackoverflow.com/questions/10857393/how-to-make-label-visible-invisible/10857429
+//https://stackoverflow.com/questions/6345577/clearinterval-is-not-stopping-setinterval-firefox-extension-development

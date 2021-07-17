@@ -13,7 +13,7 @@
             <!-- submit function is added in js using addEventListener -->
             <label for="time" id="time-label">
                 Time limit (seconds):
-                <input type="number" name="time" value="30" min="10" max="120">
+                <input type="number" name="time" value="10" min="10" max="120">
             </label>
             <div>
                 <label for="addition" id="addition-label">
@@ -47,6 +47,9 @@
             </div>
             <input type="submit" name="" id="submit-button" value="Submit">
         </form>
+        <div class="timer-div">
+            <p id="timer"></p>
+        </div>
         <button id="btn2" class="btn-invisible" onclick="clickBtn2()">Button 2</button>
         <button id="btn3" class="btn-invisible" onclick="clickBtn3()">Button 3</button>
 
