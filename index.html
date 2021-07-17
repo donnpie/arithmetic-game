@@ -11,41 +11,41 @@
     <div class="container">
         <form id="setup-form" class="div-visible">
             <!-- submit function is added in js using addEventListener -->
-            <label for="time">
-                Time limit:
+            <label for="time" id="time-label">
+                Time limit (seconds):
                 <input type="number" name="time" value="30" min="10" max="120">
             </label>
             <div>
-                <label for="addition">
+                <label for="addition" id="addition-label">
                     Allow addition:
                     <input type="checkbox" name="addition" checked>
                 </label>
-                <label for="addition-limit">
+                <label for="addition-limit" id="addition-limit-label">
                     Number limit:
                     <input type="number" name="addition-limit" value="100" min="2" max="1000">
                 </label>
             </div>
             <div>
-                <label for="subtraction">
+                <label for="subtraction" id="subtraction-label">
                     Allow subtraction:
                     <input type="checkbox" name="subtraction" checked>
                 </label>
-                <label for="subtraction-limit">
+                <label for="subtraction-limit" id="subtraction-limit-label">
                     Number limit:
                     <input type="number" name="subtraction-limit" value="20" min="2" max="1000">
                 </label>
             </div>
             <div>
-                <label for="multiplication">
+                <label for="multiplication" id="multiplication-label">
                     Allow multiplication:
                     <input type="checkbox" name="multiplication" checked>
                 </label>
-                <label for="multiplication-limit">
+                <label for="multiplication-limit" id="multiplication-limit-label">
                     Number limit:
                     <input type="number"  name="multiplication-limit" value="12" min="2" max="1000">
                 </label>
             </div>
-            <input type="submit" name="" id="" value="Submit">
+            <input type="submit" name="" id="submit-button" value="Submit">
         </form>
         <button id="btn2" class="btn-invisible" onclick="clickBtn2()">Button 2</button>
         <button id="btn3" class="btn-invisible" onclick="clickBtn3()">Button 3</button>

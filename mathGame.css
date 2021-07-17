@@ -7,6 +7,14 @@ body{
     font-family: Arial, Helvetica, sans-serif;
 }
 
+.visible{
+    display: block;
+}
+
+.invisible{
+    display: none;
+}
+
 .btn-visible{
     display: block;
 }

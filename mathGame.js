@@ -1,5 +1,4 @@
-console.log("JavaScript is connected...")
-
+//console.log("JavaScript is connected...")
 
 //State can have one of three possible values: "setup", "game", "postGame"
 let state = "setup"
@@ -12,8 +11,6 @@ const btn3 = document.getElementById('btn3')
 const setupForm = document.getElementById('setup-form')
 
 //Set intial game state
-//btn2.style.display = "none"
-//btn3.style.display = "none"
 setupForm.addEventListener('submit', clickBtn1)
 let operators = []
 
@@ -23,14 +20,13 @@ function clickBtn1(e){
     //console.log("state is " + state)
     
     let elements = e.target.elements
-    console.log(elements)
+    //console.log(elements)
     const timeLimit = elements.namedItem('time').value
     //console.log(timeLimit)
     if (!validateField(timeLimit, "Please enter a value for the time limit")) {
         return
     }
 
-    //const allowAdd = e.target.elements[1]
     const allowAdd = elements.namedItem('addition').checked
     //console.log(allowAdd)
     if (allowAdd) {
@@ -42,7 +38,6 @@ function clickBtn1(e){
         operators.push("add")
     }
 
-    //const allowSubtract = e.target.elements[2]
     const allowSubtract = elements.namedItem('subtraction').checked
     //console.log(allowSubtract)
     if (allowSubtract) {
@@ -54,18 +49,49 @@ function clickBtn1(e){
         operators.push("subtract")
     }
 
-    //const allowMultiply = e.target.elements[3]
     const allowMultiply = elements.namedItem('multiplication').checked
     //console.log(allowMultiply)
     if (allowMultiply) {
         const multiplyLimit = elements.namedItem('multiplication-limit').value
-        console.log(multiplyLimit)
+        //console.log(multiplyLimit)
         if (!validateField(multiplyLimit, "Please enter a value for the multiplication limit")) {
             return
         }
         operators.push("multiply")
     }
     //console.log(operators)
+
+    //Select at least one type of operation
+    if (!(allowAdd || allowSubtract || allowMultiply)) {
+        alert("select at least one operator")
+        return
+    }
+
+    //At this point all validations are complete and the game can begin
+
+    //Make the inputs disappear
+    elements.namedItem('addition').className = 'invisible'
+    elements.namedItem('subtraction').className = 'invisible'
+    elements.namedItem('multiplication').className = 'invisible'
+    elements.namedItem('addition-limit').className = 'invisible'
+    elements.namedItem('subtraction-limit').className = 'invisible'
+    elements.namedItem('multiplication-limit').className = 'invisible'
+    elements.namedItem('time').className = 'invisible'
+
+    //Make labels disappear
+    document.getElementById('time-label').style.display = 'none'
+    document.getElementById('addition-label').style.display = 'none'
+    document.getElementById('addition-limit-label').style.display = 'none'
+    document.getElementById('subtraction-label').style.display = 'none'
+    document.getElementById('subtraction-limit-label').style.display = 'none'
+    document.getElementById('multiplication-label').style.display = 'none'
+    document.getElementById('multiplication-limit-label').style.display = 'none'
+    document.getElementById('submit-button').style.display = 'none'
+    
+
+    //Show the timer and let it count down - can use elements,namedItem for this
+    //Show the calculation and allow the user to enter answer - repeat until time is up
+    //When time is up, show the postGame screen
 
 }
 
@@ -143,3 +169,4 @@ function validateField(field, message) {
 //https://www.sitepoint.com/community/t/how-to-set-up-preventdefault-on-form-submit/245580
 //https://www.w3schools.com/tags/att_input_value.asp
 //https://developer.mozilla.org/en-US/docs/Web/API/HTMLCollection
+//https://stackoverflow.com/questions/10857393/how-to-make-label-visible-invisible/10857429
