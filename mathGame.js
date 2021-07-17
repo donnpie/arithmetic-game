@@ -20,39 +20,52 @@ let operators = []
 function clickBtn1(e){
     e.preventDefault()
     state = "setup"
-    console.log("state is " + state)
+    //console.log("state is " + state)
     
     let elements = e.target.elements
-    const timeLimit = e.target.elements[0].value
-    //console.log(typeof(timeLimit))
-    // if (timeLimit === "" || timeLimit === NaN || timeLimit === undefined || timeLimit === null) {
-    //     alert("Please enter a value for the time limit")
-    //     return
-    // }
+    console.log(elements)
+    const timeLimit = elements.namedItem('time').value
+    //console.log(timeLimit)
     if (!validateField(timeLimit, "Please enter a value for the time limit")) {
         return
     }
 
-    const allowAdd = e.target.elements[1]
+    //const allowAdd = e.target.elements[1]
+    const allowAdd = elements.namedItem('addition').checked
+    //console.log(allowAdd)
     if (allowAdd) {
-        const addLimit = e.target.elements
-        console.log(addLimit)
-        if (!validateField(timeLimit, "Please enter a value for the time limit")) {
+        const addLimit = elements.namedItem('addition-limit').value
+        //console.log(addLimit)
+        if (!validateField(addLimit, "Please enter a value for the addition limit")) {
             return
         }
         operators.push("add")
     }
 
-    const allowSubtract = e.target.elements[2]
+    //const allowSubtract = e.target.elements[2]
+    const allowSubtract = elements.namedItem('subtraction').checked
+    //console.log(allowSubtract)
     if (allowSubtract) {
+        const subtractLimit = elements.namedItem('subtraction-limit').value
+        //console.log(subtractLimit)
+        if (!validateField(subtractLimit, "Please enter a value for the subtraction limit")) {
+            return
+        }
         operators.push("subtract")
     }
 
-    const allowMultiply = e.target.elements[3]
+    //const allowMultiply = e.target.elements[3]
+    const allowMultiply = elements.namedItem('multiplication').checked
+    //console.log(allowMultiply)
     if (allowMultiply) {
+        const multiplyLimit = elements.namedItem('multiplication-limit').value
+        console.log(multiplyLimit)
+        if (!validateField(multiplyLimit, "Please enter a value for the multiplication limit")) {
+            return
+        }
         operators.push("multiply")
     }
-    console.log(operators)
+    //console.log(operators)
 
 }
 
@@ -129,3 +142,4 @@ function validateField(field, message) {
 //https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox
 //https://www.sitepoint.com/community/t/how-to-set-up-preventdefault-on-form-submit/245580
 //https://www.w3schools.com/tags/att_input_value.asp
+//https://developer.mozilla.org/en-US/docs/Web/API/HTMLCollection
