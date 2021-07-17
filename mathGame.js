@@ -22,15 +22,24 @@ function clickBtn1(e){
     state = "setup"
     console.log("state is " + state)
     
+    let elements = e.target.elements
     const timeLimit = e.target.elements[0].value
     //console.log(typeof(timeLimit))
-    if (timeLimit === "" || timeLimit === NaN || timeLimit === undefined || timeLimit === null) {
-        alert("Please enter a value for the time limit")
+    // if (timeLimit === "" || timeLimit === NaN || timeLimit === undefined || timeLimit === null) {
+    //     alert("Please enter a value for the time limit")
+    //     return
+    // }
+    if (!validateField(timeLimit, "Please enter a value for the time limit")) {
         return
     }
 
     const allowAdd = e.target.elements[1]
     if (allowAdd) {
+        const addLimit = e.target.elements
+        console.log(addLimit)
+        if (!validateField(timeLimit, "Please enter a value for the time limit")) {
+            return
+        }
         operators.push("add")
     }
 
@@ -63,6 +72,15 @@ function clickBtn3(){
     btn1.className = "btn-visible"
     btn2.className = "btn-invisible"
     btn3.className = "btn-invisible"
+}
+
+//Helper functions
+function validateField(field, message) {
+    if (field === "" || field === NaN || field === undefined || field === null) {
+        alert(message)
+        return false
+    }
+    return true
 }
 
 

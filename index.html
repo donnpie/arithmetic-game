@@ -13,21 +13,38 @@
             <!-- submit function is added in js using addEventListener -->
             <label for="time">
                 Time limit:
-                <input type="number" value="30" min="10" max="120">
+                <input type="number" name="time" value="30" min="10" max="120">
             </label>
-            <label for="addition">
-                Allow addition:
-                <input type="checkbox" name="addition" checked>
-            </label>
-            <label for="subtraction">
-                Allow subtraction:
-                <input type="checkbox" name="subtraction" checked>
-            </label>
-            <label for="multiplication">
-                Allow multiplication:
-                <input type="checkbox" name="multiplication" checked>
-            </label>
-            <!-- <button id="btn1" class="btn-visible" onclick="clickBtn1()">Button 1</button> -->
+            <div>
+                <label for="addition">
+                    Allow addition:
+                    <input type="checkbox" name="addition" checked>
+                </label>
+                <label for="addition-limit">
+                    Number limit:
+                    <input type="number" value="100" min="2" max="1000">
+                </label>
+            </div>
+            <div>
+                <label for="subtraction">
+                    Allow subtraction:
+                    <input type="checkbox" name="subtraction" checked>
+                </label>
+                <label for="subtraction-limit">
+                    Number limit:
+                    <input type="number" value="20" min="2" max="1000">
+                </label>
+            </div>
+            <div>
+                <label for="multiplication">
+                    Allow multiplication:
+                    <input type="checkbox" name="multiplication" checked>
+                </label>
+                <label for="multiplication-limit">
+                    Number limit:
+                    <input type="number" value="12" min="2" max="1000">
+                </label>
+            </div>
             <input type="submit" name="" id="" value="Submit">
         </form>
         <button id="btn2" class="btn-invisible" onclick="clickBtn2()">Button 2</button>
