@@ -6,3 +6,19 @@
 body{
     font-family: Arial, Helvetica, sans-serif;
 }
+
+.btn-visible{
+    display: block;
+}
+
+.btn-invisible{
+    display: none;
+}
+
+.div-visible{
+    display: block;
+}
+
+.div-invisible{
+    display: none;
+}
