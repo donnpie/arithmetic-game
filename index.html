@@ -9,9 +9,27 @@
 </head>
 <body>
     <div class="container">
-        <div id="div1" class="div-visible">
-            <button id="btn1" class="btn-visible" onclick="clickBtn1()">Button 1</button>
-        </div>
+        <form id="setup-form" class="div-visible">
+            <!-- submit function is added in js using addEventListener -->
+            <label for="time">
+                Time limit:
+                <input type="number" value="30" min="10" max="120">
+            </label>
+            <label for="addition">
+                Allow addition:
+                <input type="checkbox" name="addition" checked>
+            </label>
+            <label for="subtraction">
+                Allow subtraction:
+                <input type="checkbox" name="subtraction" checked>
+            </label>
+            <label for="multiplication">
+                Allow multiplication:
+                <input type="checkbox" name="multiplication" checked>
+            </label>
+            <!-- <button id="btn1" class="btn-visible" onclick="clickBtn1()">Button 1</button> -->
+            <input type="submit" name="" id="" value="Submit">
+        </form>
         <button id="btn2" class="btn-invisible" onclick="clickBtn2()">Button 2</button>
         <button id="btn3" class="btn-invisible" onclick="clickBtn3()">Button 3</button>
 
