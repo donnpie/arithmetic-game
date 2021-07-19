@@ -9,12 +9,15 @@ const btn1 = document.getElementById('btn1')
 const btn2 = document.getElementById('btn2')
 const btn3 = document.getElementById('btn3')
 const setupForm = document.getElementById('setup-form')
+const calculationForm = document.getElementById('calculation-form')
 
 //Set intial game state
 setupForm.addEventListener('submit', clickBtn1)
+calculationForm.addEventListener('submit', clickBtn2)
 let operators = []
 
 function clickBtn1(e){
+    //When user submits setup form
     e.preventDefault()
     state = "setup"
     //console.log("state is " + state)
@@ -29,8 +32,8 @@ function clickBtn1(e){
 
     const allowAdd = elements.namedItem('addition').checked
     //console.log(allowAdd)
+    let addLimit = elements.namedItem('addition-limit').value
     if (allowAdd) {
-        let addLimit = elements.namedItem('addition-limit').value
         //console.log(addLimit)
         if (!validateField(addLimit, "Please enter a value for the addition limit")) {
             return
@@ -40,8 +43,8 @@ function clickBtn1(e){
 
     const allowSubtract = elements.namedItem('subtraction').checked
     //console.log(allowSubtract)
+    let subtractLimit = elements.namedItem('subtraction-limit').value
     if (allowSubtract) {
-        let subtractLimit = elements.namedItem('subtraction-limit').value
         //console.log(subtractLimit)
         if (!validateField(subtractLimit, "Please enter a value for the subtraction limit")) {
             return
@@ -51,8 +54,8 @@ function clickBtn1(e){
 
     const allowMultiply = elements.namedItem('multiplication').checked
     //console.log(allowMultiply)
+    let multiplyLimit = elements.namedItem('multiplication-limit').value
     if (allowMultiply) {
-        let multiplyLimit = elements.namedItem('multiplication-limit').value
         //console.log(multiplyLimit)
         if (!validateField(multiplyLimit, "Please enter a value for the multiplication limit")) {
             return
@@ -86,9 +89,8 @@ function clickBtn1(e){
     document.getElementById('subtraction-limit-label').style.display = 'none'
     document.getElementById('multiplication-label').style.display = 'none'
     document.getElementById('multiplication-limit-label').style.display = 'none'
-    document.getElementById('submit-button').style.display = 'none'
+    document.getElementById('setup-submit-button').style.display = 'none'
     
-
     //Show the timer and let it count down
     timeLimit = parseInt(timeLimit)
     //console.log(timeLimit)
@@ -102,20 +104,44 @@ function clickBtn1(e){
             clearInterval(interval);
             //clearTimeout();
         }
-    }, 1000);
+    }, 1000)
 
-    //Show the calculation and allow the user to enter answer - repeat until time is up
+    //Show the first calculation and allow the user to enter answer - repeat until time is up
+    //Pick the operation
+    let index = Math.floor(Math.random()*operators.length)
+    let operator = operators[index]
+    let symbol
+    let limit
+    symbol = getOperatorAndLimit(operator, addLimit, subtractLimit, multiplyLimit)[0]
+    limit = getOperatorAndLimit(operator, addLimit, subtractLimit, multiplyLimit)[1]
+    
+    //Pick the arguments based on operation's upper limit
+    let arg1 = Math.floor(Math.random()*limit)
+    let arg2 = Math.floor(Math.random()*limit)
+    
+    //Calculate the answer
+    let answer = calculateAnswer(operator, arg1, arg2)
+    //alert(arg1 + " " + symbol + " " + arg2 + " " + "=" + " " + answer)
+
+    //Display the calculation
+    document.getElementById('arg1').innerText = arg1
+    document.getElementById('arg2').innerText = arg2
+    document.getElementById('operator').innerText = symbol
+    
     //When time is up, show the postGame screen
 
 }
 
-function clickBtn2(){
-    //e.preventDefault()
+function clickBtn2(e){
+    //When user submits answer
+    e.preventDefault()
     state = "game"
     console.log("state is " + state)
-    btn1.className = "btn-invisible"
-    btn2.className = "btn-invisible"
-    btn3.className = "btn-visible"
+    //Check if answer is correct
+    //add to solution arrray
+    //Generate new calculation
+
+
 }
 
 function clickBtn3(){
@@ -134,6 +160,40 @@ function validateField(field, message) {
         return false
     }
     return true
+}
+
+function getOperatorAndLimit(operator, addLimit, subtractLimit, multiplyLimit){
+    switch (operator) {
+        case "add":
+            //alert("add")
+            // symbol = "+"
+            // limit = addLimit
+            return ["+", addLimit]
+            break;
+        case "subtract":
+            //alert("subtract")
+            // symbol = "-"
+            // limit = subtractLimit
+            return ["-", subtractLimit]
+            break;
+        case "multiply":
+            //alert("multiply")
+            // symbol = "*"
+            // limit = multiplyLimit
+            return ["*", multiplyLimit]
+            break;
+    }
+}
+
+function calculateAnswer(operator, arg1, arg2){
+    switch (operator) {
+        case "add":
+            return arg1 + arg2
+        case "subtract":
+            return arg1 - arg2
+        case "multiply":
+            return arg1 * arg2
+    }
 }
 
 

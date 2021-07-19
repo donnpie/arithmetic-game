@@ -30,3 +30,8 @@ body{
 .div-invisible{
     display: none;
 }
+
+#calculation-form{
+    display: flex;
+    flex-direction: row;
+}
