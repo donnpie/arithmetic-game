@@ -2,6 +2,7 @@
 
 //State can have one of three possible values: "setup", "game", "postGame"
 let state = "setup"
+let results = [] //Stores the results after each submission by the user
 //console.log("state is " + state)
 
 //Get the elements
@@ -10,6 +11,21 @@ const btn2 = document.getElementById('btn2')
 const btn3 = document.getElementById('btn3')
 const setupForm = document.getElementById('setup-form')
 const calculationForm = document.getElementById('calculation-form')
+const arg1Display = document.getElementById('arg1')
+const arg2Display = document.getElementById('arg2')
+const operatorDisplay = document.getElementById('operator')
+const equalSign = document.getElementById('equal-sign')
+const answerInput = document.getElementById('answer-input')
+const calculationSubmitButton = document.getElementById('calculation-submit-button')
+
+//Make the game form disappear
+arg1Display.className = 'invisible'
+arg2Display.className = 'invisible'
+operatorDisplay.className = 'invisible'
+operatorDisplay.className = 'invisible'
+equalSign.className = 'invisible'
+answerInput.className = 'invisible'
+calculationSubmitButton.className = 'invisible'
 
 //Set intial game state
 setupForm.addEventListener('submit', clickBtn1)
@@ -106,6 +122,15 @@ function clickBtn1(e){
         }
     }, 1000)
 
+    //Make the game form appear
+    arg1Display.className = 'visible'
+    arg2Display.className = 'visible'
+    operatorDisplay.className = 'visible'
+    operatorDisplay.className = 'visible'
+    equalSign.className = 'visible'
+    answerInput.className = 'visible'
+    calculationSubmitButton.className = 'visible'
+
     //Show the first calculation and allow the user to enter answer - repeat until time is up
     //Pick the operation
     let index = Math.floor(Math.random()*operators.length)
@@ -124,9 +149,9 @@ function clickBtn1(e){
     //alert(arg1 + " " + symbol + " " + arg2 + " " + "=" + " " + answer)
 
     //Display the calculation
-    document.getElementById('arg1').innerText = arg1
-    document.getElementById('arg2').innerText = arg2
-    document.getElementById('operator').innerText = symbol
+    arg1Display.innerText = arg1
+    arg2Display.innerText = arg2
+    operatorDisplay.innerText = symbol
     
     //When time is up, show the postGame screen
 
@@ -135,12 +160,16 @@ function clickBtn1(e){
 function clickBtn2(e){
     //When user submits answer
     e.preventDefault()
-    state = "game"
-    console.log("state is " + state)
-    //Check if answer is correct
+    
+    //Get the user's answer
+    //console.log(e.target.elements)
+    let elements = e.target.elements
+    let userAnswer = elements.namedItem('answer-input').value
+    //console.log(userAnswer)
+    //answerInput
     //add to solution arrray
+    recordResult(results, arg1, arg2, symbol, correctAnswer, userAnswer) //Continue here
     //Generate new calculation
-
 
 }
 
@@ -169,19 +198,16 @@ function getOperatorAndLimit(operator, addLimit, subtractLimit, multiplyLimit){
             // symbol = "+"
             // limit = addLimit
             return ["+", addLimit]
-            break;
         case "subtract":
             //alert("subtract")
             // symbol = "-"
             // limit = subtractLimit
             return ["-", subtractLimit]
-            break;
         case "multiply":
             //alert("multiply")
             // symbol = "*"
             // limit = multiplyLimit
             return ["*", multiplyLimit]
-            break;
     }
 }
 
@@ -194,6 +220,19 @@ function calculateAnswer(operator, arg1, arg2){
         case "multiply":
             return arg1 * arg2
     }
+}
+
+function recordResult(results, arg1, arg2, symbol, correctAnswer, userAnswer) {
+    //console.log("record result")
+    const status = correctAnswer===userAnswer ? "Correct" : "Incorrect"
+    results.push({
+        arg1,
+        arg2,
+        operator: symbol,
+        correctAnswer,
+        userAnswer,
+        status
+    })
 }
 
 
