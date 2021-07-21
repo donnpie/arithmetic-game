@@ -8,7 +8,6 @@ let correctAnswer
 let addLimit
 let subtractLimit
 let multiplyLimit
-//console.log("state is " + state)
 
 //Get the elements
 const btn1 = document.getElementById('btn1')
@@ -40,22 +39,16 @@ let operators = []
 function clickBtn1(e){
     //When user submits setup form
     e.preventDefault()
-    state = "setup"
-    //console.log("state is " + state)
     
     let elements = e.target.elements
-    //console.log(elements)
     let timeLimit = elements.namedItem('time').value
-    //console.log(timeLimit)
     if (!validateField(timeLimit, "Please enter a value for the time limit")) {
         return
     }
 
     const allowAdd = elements.namedItem('addition').checked
-    //console.log(allowAdd)
     addLimit = elements.namedItem('addition-limit').value
     if (allowAdd) {
-        //console.log(addLimit)
         if (!validateField(addLimit, "Please enter a value for the addition limit")) {
             return
         }
@@ -63,10 +56,8 @@ function clickBtn1(e){
     }
 
     const allowSubtract = elements.namedItem('subtraction').checked
-    //console.log(allowSubtract)
     subtractLimit = elements.namedItem('subtraction-limit').value
     if (allowSubtract) {
-        //console.log(subtractLimit)
         if (!validateField(subtractLimit, "Please enter a value for the subtraction limit")) {
             return
         }
@@ -74,16 +65,13 @@ function clickBtn1(e){
     }
 
     const allowMultiply = elements.namedItem('multiplication').checked
-    //console.log(allowMultiply)
     multiplyLimit = elements.namedItem('multiplication-limit').value
     if (allowMultiply) {
-        //console.log(multiplyLimit)
         if (!validateField(multiplyLimit, "Please enter a value for the multiplication limit")) {
             return
         }
         operators.push("multiply")
     }
-    //console.log(operators)
 
     //Select at least one type of operation
     if (!(allowAdd || allowSubtract || allowMultiply)) {
@@ -114,32 +102,37 @@ function clickBtn1(e){
     
     //Show the timer and let it count down
     timeLimit = parseInt(timeLimit)
-    //console.log(timeLimit)
     let timer = document.getElementById('timer')
     let interval
     interval = setInterval(() => {
         timer.innerText = "Time remaining: " + timeLimit
         timeLimit--
         if (timeLimit < 0) {
-            //console.log("Timer has reached 0")
             clearInterval(interval);
-            //clearTimeout();
+
+            //Hide the game screen
+            hideGameForm()
+
+            //hide the timer
+            timer.innerText = ""
+
+            //Show post game screen
         }
     }, 1000)
 
     //Make the game form appear
-    arg1Display.className = 'visible'
-    arg2Display.className = 'visible'
-    operatorDisplay.className = 'visible'
-    operatorDisplay.className = 'visible'
-    equalSign.className = 'visible'
-    answerInput.className = 'visible'
-    calculationSubmitButton.className = 'visible'
+    // arg1Display.className = 'visible'
+    // arg2Display.className = 'visible'
+    // operatorDisplay.className = 'visible'
+    // operatorDisplay.className = 'visible'
+    // equalSign.className = 'visible'
+    // answerInput.className = 'visible'
+    // calculationSubmitButton.className = 'visible'
+    showGameForm()
 
-    //Show the first calculation and allow the user to enter answer - repeat until time is up
-    //Pick the operation
-    //let index = Math.floor(Math.random()*operators.length)
-    //let operator = operators[index]
+
+    //Show the first calculation and allow the user to enter answer
+    //Pick the operation and limit
     let operator = getOperator(operators)
     symbol = getSymbol(operator)
     limit = getLimit(operator, addLimit, subtractLimit, multiplyLimit)
@@ -150,13 +143,8 @@ function clickBtn1(e){
     
     //Calculate the answer
     correctAnswer = calculateAnswer(operator, arg1, arg2)
-    //alert(arg1 + " " + symbol + " " + arg2 + " " + "=" + " " + answer)
 
     //Display the calculation
-    // arg1Display.innerText = arg1
-    // arg2Display.innerText = arg2
-    // operatorDisplay.innerText = symbol
-    // answerInput.innerText = ""
     displayCalculation(arg1, arg2, symbol)
     
     //When time is up, show the postGame screen
@@ -193,6 +181,7 @@ function clickBtn2(e){
 }
 
 function clickBtn3(){
+    //User clicks button to move away from post game screen
     //e.preventDefault()
     state = "postGame"
     console.log("state is " + state)
@@ -262,7 +251,6 @@ function getOperator(operators) {
 
 }
 
-
 function displayCalculation(arg1, arg2, symbol) {
     arg1Display.innerText = arg1
     arg2Display.innerText = arg2
@@ -270,6 +258,28 @@ function displayCalculation(arg1, arg2, symbol) {
     answerInput.innerText = ""
 }  
 
+
+function showGameForm() {
+    const status = 'visible'
+    arg1Display.className = status
+    arg2Display.className = status
+    operatorDisplay.className = status
+    operatorDisplay.className = status
+    equalSign.className = status
+    answerInput.className = status
+    calculationSubmitButton.className = status
+}
+
+function hideGameForm() {
+    const status = 'invisible'
+    arg1Display.className = status
+    arg2Display.className = status
+    operatorDisplay.className = status
+    operatorDisplay.className = status
+    equalSign.className = status
+    answerInput.className = status
+    calculationSubmitButton.className = status
+}
 
 
 
