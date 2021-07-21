@@ -3,6 +3,11 @@
 //State can have one of three possible values: "setup", "game", "postGame"
 let state = "setup"
 let results = [] //Stores the results after each submission by the user
+let limit
+let correctAnswer
+let addLimit
+let subtractLimit
+let multiplyLimit
 //console.log("state is " + state)
 
 //Get the elements
@@ -48,7 +53,7 @@ function clickBtn1(e){
 
     const allowAdd = elements.namedItem('addition').checked
     //console.log(allowAdd)
-    let addLimit = elements.namedItem('addition-limit').value
+    addLimit = elements.namedItem('addition-limit').value
     if (allowAdd) {
         //console.log(addLimit)
         if (!validateField(addLimit, "Please enter a value for the addition limit")) {
@@ -59,7 +64,7 @@ function clickBtn1(e){
 
     const allowSubtract = elements.namedItem('subtraction').checked
     //console.log(allowSubtract)
-    let subtractLimit = elements.namedItem('subtraction-limit').value
+    subtractLimit = elements.namedItem('subtraction-limit').value
     if (allowSubtract) {
         //console.log(subtractLimit)
         if (!validateField(subtractLimit, "Please enter a value for the subtraction limit")) {
@@ -70,7 +75,7 @@ function clickBtn1(e){
 
     const allowMultiply = elements.namedItem('multiplication').checked
     //console.log(allowMultiply)
-    let multiplyLimit = elements.namedItem('multiplication-limit').value
+    multiplyLimit = elements.namedItem('multiplication-limit').value
     if (allowMultiply) {
         //console.log(multiplyLimit)
         if (!validateField(multiplyLimit, "Please enter a value for the multiplication limit")) {
@@ -133,25 +138,26 @@ function clickBtn1(e){
 
     //Show the first calculation and allow the user to enter answer - repeat until time is up
     //Pick the operation
-    let index = Math.floor(Math.random()*operators.length)
-    let operator = operators[index]
-    let symbol
-    let limit
-    symbol = getOperatorAndLimit(operator, addLimit, subtractLimit, multiplyLimit)[0]
-    limit = getOperatorAndLimit(operator, addLimit, subtractLimit, multiplyLimit)[1]
+    //let index = Math.floor(Math.random()*operators.length)
+    //let operator = operators[index]
+    let operator = getOperator(operators)
+    symbol = getSymbol(operator)
+    limit = getLimit(operator, addLimit, subtractLimit, multiplyLimit)
     
     //Pick the arguments based on operation's upper limit
     let arg1 = Math.floor(Math.random()*limit)
     let arg2 = Math.floor(Math.random()*limit)
     
     //Calculate the answer
-    let answer = calculateAnswer(operator, arg1, arg2)
+    correctAnswer = calculateAnswer(operator, arg1, arg2)
     //alert(arg1 + " " + symbol + " " + arg2 + " " + "=" + " " + answer)
 
     //Display the calculation
-    arg1Display.innerText = arg1
-    arg2Display.innerText = arg2
-    operatorDisplay.innerText = symbol
+    // arg1Display.innerText = arg1
+    // arg2Display.innerText = arg2
+    // operatorDisplay.innerText = symbol
+    // answerInput.innerText = ""
+    displayCalculation(arg1, arg2, symbol)
     
     //When time is up, show the postGame screen
 
@@ -162,15 +168,28 @@ function clickBtn2(e){
     e.preventDefault()
     
     //Get the user's answer
-    //console.log(e.target.elements)
     let elements = e.target.elements
-    let userAnswer = elements.namedItem('answer-input').value
-    //console.log(userAnswer)
-    //answerInput
-    //add to solution arrray
-    recordResult(results, arg1, arg2, symbol, correctAnswer, userAnswer) //Continue here
-    //Generate new calculation
+    let userAnswer = parseInt(elements.namedItem('answer-input').value)
+    validateField(userAnswer, "Please enter answer")
 
+    //add to solution arrray
+    recordResult(results, arg1Display.innerText, arg2Display.innerText, symbol, correctAnswer, userAnswer)
+
+    //Generate new calculation
+    let operator = getOperator(operators)
+    symbol = getSymbol(operator)
+    limit = getLimit(operator, addLimit, subtractLimit, multiplyLimit)
+    
+    //Pick the arguments based on operation's upper limit
+    let arg1 = Math.floor(Math.random()*limit)
+    let arg2 = Math.floor(Math.random()*limit)
+    
+    //Calculate the answer
+    correctAnswer = calculateAnswer(operator, arg1, arg2)
+
+    //Display new calculation
+    displayCalculation(arg1, arg2, symbol)
+    console.log(results)
 }
 
 function clickBtn3(){
@@ -191,23 +210,25 @@ function validateField(field, message) {
     return true
 }
 
-function getOperatorAndLimit(operator, addLimit, subtractLimit, multiplyLimit){
+function getSymbol(operator){
     switch (operator) {
         case "add":
-            //alert("add")
-            // symbol = "+"
-            // limit = addLimit
-            return ["+", addLimit]
+            return "+"
         case "subtract":
-            //alert("subtract")
-            // symbol = "-"
-            // limit = subtractLimit
-            return ["-", subtractLimit]
+            return "-"
         case "multiply":
-            //alert("multiply")
-            // symbol = "*"
-            // limit = multiplyLimit
-            return ["*", multiplyLimit]
+            return "*"
+    }
+}
+
+function getLimit(operator, addLimit, subtractLimit, multiplyLimit){
+    switch (operator) {
+        case "add":
+            return addLimit
+        case "subtract":
+            return subtractLimit
+        case "multiply":
+            return multiplyLimit
     }
 }
 
@@ -226,7 +247,7 @@ function recordResult(results, arg1, arg2, symbol, correctAnswer, userAnswer) {
     //console.log("record result")
     const status = correctAnswer===userAnswer ? "Correct" : "Incorrect"
     results.push({
-        arg1,
+        arg1, 
         arg2,
         operator: symbol,
         correctAnswer,
@@ -235,7 +256,19 @@ function recordResult(results, arg1, arg2, symbol, correctAnswer, userAnswer) {
     })
 }
 
+function getOperator(operators) {
+    let index = Math.floor(Math.random()*operators.length)
+    return operators[index]
 
+}
+
+
+function displayCalculation(arg1, arg2, symbol) {
+    arg1Display.innerText = arg1
+    arg2Display.innerText = arg2
+    operatorDisplay.innerText = symbol
+    answerInput.innerText = ""
+}  
 
 
 
