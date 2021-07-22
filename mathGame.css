@@ -31,7 +31,7 @@ body{
     display: none;
 }
 
-#calculation-form{
+#calculation-form, #post-game-header{
     display: flex;
     flex-direction: row;
 }

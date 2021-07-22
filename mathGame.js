@@ -108,26 +108,32 @@ function clickBtn1(e){
         timer.innerText = "Time remaining: " + timeLimit
         timeLimit--
         if (timeLimit < 0) {
+            //Timer has expired
             clearInterval(interval);
 
             //Hide the game screen
             hideGameForm()
 
-            //hide the timer
+            //Hide the timer
             timer.innerText = ""
 
             //Show post game screen
+            document.getElementById('post-game-form').className="visible"
+            document.getElementById('table').className="visible"
+
+            //print table contents
+            let tableBodyHtml = ""
+            for (let result of results) {
+                let calc = result.arg1 + " " + result.operator + " " + result.arg2
+                let html = `<tr><td>${calc}</td><td>${result.correctAnswer}</td><td>${result.userAnswer}</td><td>${result.status}</td></tr>`
+                tableBodyHtml += html
+            }
+            document.getElementById('table-body').innerHTML = tableBodyHtml
+
         }
     }, 1000)
 
     //Make the game form appear
-    // arg1Display.className = 'visible'
-    // arg2Display.className = 'visible'
-    // operatorDisplay.className = 'visible'
-    // operatorDisplay.className = 'visible'
-    // equalSign.className = 'visible'
-    // answerInput.className = 'visible'
-    // calculationSubmitButton.className = 'visible'
     showGameForm()
 
 
@@ -146,9 +152,6 @@ function clickBtn1(e){
 
     //Display the calculation
     displayCalculation(arg1, arg2, symbol)
-    
-    //When time is up, show the postGame screen
-
 }
 
 function clickBtn2(e){
