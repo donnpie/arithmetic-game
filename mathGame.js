@@ -82,45 +82,36 @@ function clickBtn1(e){
         timer.innerText = "Time remaining: " + timeLimit
         timeLimit--
         if (timeLimit < 0) {
-            //Timer has expired
-            clearInterval(interval);
-
-            //Hide the game screen
-            hideGameForm()
-
-            //Hide the timer
-            timer.innerText = ""
-
-            //Show post game screen
-            document.getElementById('post-game-form').className="visible"
-            document.getElementById('table').className="visible"
-            btn3.className = "visible"
-
-            //print results table
-            printResultsTable(results)
-
-
+            handlePostGameScreen(timer, results)
         }
     }, 1000)
+
+    function handlePostGameScreen(timer, results) {
+        //Timer has expired
+        clearInterval(interval);
+
+        //Hide the game screen
+        hideGameForm()
+
+        //Hide the timer
+        timer.innerText = ""
+
+        //Show post game screen
+        document.getElementById('post-game-form').className="visible"
+        document.getElementById('table').className="visible"
+        btn3.className = "visible"
+
+        //print results table
+        printResultsTable(results)
+    }
 
     //Make the game form appear
     showGameForm()
 
     //Show the first calculation and allow the user to enter answer
-    //Pick the operation and limit
-    let operator = getOperator(operators)
-    symbol = getSymbol(operator)
-    limit = getLimit(operator, addLimit, subtractLimit, multiplyLimit)
-    
-    //Pick the arguments based on operation's upper limit
-    let arg1 = getArg(limit)
-    let arg2 = getArg(limit)
+    showFirstCalculation()
 
-    //Calculate the answer
-    correctAnswer = calculateAnswer(operator, arg1, arg2)
 
-    //Display the calculation
-    displayCalculation(arg1, arg2, symbol)
 }
 
 function clickBtn2(e){
@@ -212,6 +203,23 @@ function recordResult(results, arg1, arg2, symbol, correctAnswer, userAnswer) {
     })
 }
 
+function showFirstCalculation(){
+    //Pick the operation and limit
+    let operator = getOperator(operators)
+    symbol = getSymbol(operator)
+    limit = getLimit(operator, addLimit, subtractLimit, multiplyLimit)
+
+    //Pick the arguments based on operation's upper limit
+    let arg1 = getArg(limit)
+    let arg2 = getArg(limit)
+
+    //Calculate the answer
+    correctAnswer = calculateAnswer(operator, arg1, arg2)
+
+    //Display the calculation
+    displayCalculation(arg1, arg2, symbol)
+}
+
 function getOperator(operators) {
     let index = Math.floor(Math.random()*operators.length)
     return operators[index]
@@ -287,6 +295,7 @@ function  printResultsTable(results) {
     document.getElementById('table-body').innerHTML = tableBodyHtml
     document.getElementById('score').innerText = "Your score:" + score
 }
+
 
 //References
 //https://stackoverflow.com/questions/1947263/using-an-html-button-to-call-a-javascript-function
