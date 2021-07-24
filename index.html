@@ -48,21 +48,21 @@
             <input type="submit" name="" id="setup-submit-button" value="Start">
         </form>
         <div id="game-form">
-            <div class="timer-div">
+            <div id="timer-div">
                 <p id="timer"></p>
             </div>
             <form id="calculation-form">
                 <div class="calculation-text" id="arg1"></div>
                 <div class="calculation-text" id="operator"></div>
                 <div class="calculation-text" id="arg2"></div>
-                <div class="calculation-text" id="equal-sign">=</div>
-                <input type="text" name="answer" id="answer-input">
+                <div class="calculation-text" id="equal-sign"> = </div>
+                <input type="number" name="answer" id="answer-input">
                 <input type="submit" name="" id="calculation-submit-button" value="Submit">
             </form>
         </div>
         <div  class="invisible" id="post-game-form">
             <div id="post-game-header" >
-                <h1>Your results</h1>
+                <h1></h1>
                 <h1 id="score">Your score:</h1>
             </div>
             <table class="invisible" id="table">
@@ -81,7 +81,7 @@
             </table>
 
         </div>
-        <button id="btn3" class="btn-invisible" onclick="clickBtn3()">Play again</button>
+        <button id="btn3" class="invisible" onclick="clickBtn3()">Play again</button>
 
 
 

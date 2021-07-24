@@ -142,7 +142,6 @@ function clickBtn1(e){
     //Make the game form appear
     showGameForm()
 
-
     //Show the first calculation and allow the user to enter answer
     //Pick the operation and limit
     let operator = getOperator(operators)
@@ -150,9 +149,9 @@ function clickBtn1(e){
     limit = getLimit(operator, addLimit, subtractLimit, multiplyLimit)
     
     //Pick the arguments based on operation's upper limit
-    let arg1 = 2 + Math.floor(Math.random()*(limit - 2))
-    let arg2 = 2 + Math.floor(Math.random()*(limit - 2))
-    
+    let arg1 = getArg(limit)
+    let arg2 = getArg(limit)
+
     //Calculate the answer
     correctAnswer = calculateAnswer(operator, arg1, arg2)
 
@@ -179,8 +178,8 @@ function clickBtn2(e){
     limit = getLimit(operator, addLimit, subtractLimit, multiplyLimit)
     
     //Pick the arguments based on operation's upper limit
-    let arg1 = Math.floor(Math.random()*limit)
-    let arg2 = Math.floor(Math.random()*limit)
+    let arg1 = getArg(limit)
+    let arg2 = getArg(limit)
     
     //Calculate the answer
     correctAnswer = calculateAnswer(operator, arg1, arg2)
@@ -192,12 +191,6 @@ function clickBtn2(e){
 
 function clickBtn3(){
     //User clicks button to move away from post game screen
-    //e.preventDefault()
-    // state = "postGame"
-    // console.log("state is " + state)
-    // btn1.className = "btn-visible"
-    // btn2.className = "btn-invisible"
-    // btn3.className = "btn-invisible"
     location.reload()
 }
 
@@ -244,7 +237,6 @@ function calculateAnswer(operator, arg1, arg2){
 }
 
 function recordResult(results, arg1, arg2, symbol, correctAnswer, userAnswer) {
-    //console.log("record result")
     const status = correctAnswer===userAnswer ? "Correct" : "Incorrect"
     results.push({
         arg1, 
@@ -263,7 +255,7 @@ function getOperator(operators) {
 }
 
 function displayCalculation(arg1, arg2, symbol) {
-    arg1Display.innerText = arg1
+    arg1Display.innerText = arg1 + " "
     arg2Display.innerText = arg2
     operatorDisplay.innerText = symbol
     answerInput.innerText = ""
@@ -291,41 +283,10 @@ function hideGameForm() {
     answerInput.className = status
     calculationSubmitButton.className = status
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+   
+function getArg(limit){
+    return 2 + Math.floor(Math.random()*(limit - 2))
+}
 
 //References
 //https://stackoverflow.com/questions/1947263/using-an-html-button-to-call-a-javascript-function
@@ -339,3 +300,5 @@ function hideGameForm() {
 //https://stackoverflow.com/questions/10857393/how-to-make-label-visible-invisible/10857429
 //https://stackoverflow.com/questions/6345577/clearinterval-is-not-stopping-setinterval-firefox-extension-development
 //https://www.w3schools.com/jsref/met_loc_reload.asp
+//https://www.bitdegree.org/learn/css-form#:~:text=CSS%20attribute%20selectors%20select%20specific,form%20fields%20that%20accept%20numbers.
+//https://www.w3.org/Style/Examples/007/evenodd.en.html

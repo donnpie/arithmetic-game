@@ -5,6 +5,52 @@
 
 body{
     font-family: Arial, Helvetica, sans-serif;
+    background-color: #689ff7;
+    box-sizing: border-box;
+}
+
+.container{
+    width: 30%;
+    margin: auto;
+}
+
+label{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+input[type=number] {
+    width: 20%;
+    text-align: right;
+    padding: 5px;
+    border: none;
+}
+
+input[type=submit], button{
+    margin-bottom: 10px;
+    padding: 6px 20px;
+    cursor: pointer;
+    border: none;
+}
+
+#timer-div{
+    padding-top: 20px;
+}
+
+#calculation-form{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+
+#arg1, #operator, #arg2, #equal-sign {
+    margin-right: 3px;
+}
+
+#answer-input {
+    height: 19px;
+    margin-right: 20px;
 }
 
 .visible{
@@ -15,23 +61,20 @@ body{
     display: none;
 }
 
-.btn-visible{
-    display: block;
-}
-
-.btn-invisible{
-    display: none;
-}
-
-.div-visible{
-    display: block;
-}
-
-.div-invisible{
-    display: none;
-}
-
 #calculation-form, #post-game-header{
     display: flex;
     flex-direction: row;
+    margin: 20px;
+}
+
+tr:nth-child(even) {
+    background: #CCC
+}
+
+tr:nth-child(odd) {
+    background: #FFF
+}
+
+td, th{
+    padding: 3px;
 }
