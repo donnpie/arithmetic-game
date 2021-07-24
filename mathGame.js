@@ -22,15 +22,6 @@ const equalSign = document.getElementById('equal-sign')
 const answerInput = document.getElementById('answer-input')
 const calculationSubmitButton = document.getElementById('calculation-submit-button')
 
-//Make the game form disappear
-arg1Display.className = 'invisible'
-arg2Display.className = 'invisible'
-operatorDisplay.className = 'invisible'
-operatorDisplay.className = 'invisible'
-equalSign.className = 'invisible'
-answerInput.className = 'invisible'
-calculationSubmitButton.className = 'invisible'
-
 //Set intial game state
 setupForm.addEventListener('submit', clickBtn1)
 calculationForm.addEventListener('submit', clickBtn2)
@@ -39,7 +30,8 @@ let operators = []
 function clickBtn1(e){
     //When user submits setup form
     e.preventDefault()
-    
+    //console.log("made it to here")
+    //Validate inputs
     let elements = e.target.elements
     let timeLimit = elements.namedItem('time').value
     if (!validateField(timeLimit, "Please enter a value for the time limit")) {
@@ -80,26 +72,8 @@ function clickBtn1(e){
     }
 
     //At this point all validations are complete and the game can begin
+    hideInputform(elements)
 
-    //Make the inputs disappear
-    elements.namedItem('addition').className = 'invisible'
-    elements.namedItem('subtraction').className = 'invisible'
-    elements.namedItem('multiplication').className = 'invisible'
-    elements.namedItem('addition-limit').className = 'invisible'
-    elements.namedItem('subtraction-limit').className = 'invisible'
-    elements.namedItem('multiplication-limit').className = 'invisible'
-    elements.namedItem('time').className = 'invisible'
-
-    //Make labels disappear
-    document.getElementById('time-label').style.display = 'none'
-    document.getElementById('addition-label').style.display = 'none'
-    document.getElementById('addition-limit-label').style.display = 'none'
-    document.getElementById('subtraction-label').style.display = 'none'
-    document.getElementById('subtraction-limit-label').style.display = 'none'
-    document.getElementById('multiplication-label').style.display = 'none'
-    document.getElementById('multiplication-limit-label').style.display = 'none'
-    document.getElementById('setup-submit-button').style.display = 'none'
-    
     //Show the timer and let it count down
     timeLimit = parseInt(timeLimit)
     let timer = document.getElementById('timer')
@@ -286,6 +260,27 @@ function hideGameForm() {
    
 function getArg(limit){
     return 2 + Math.floor(Math.random()*(limit - 2))
+}
+
+function hideInputform(elements) {
+    //Make the inputs disappear
+    elements.namedItem('addition').className = 'invisible'
+    elements.namedItem('subtraction').className = 'invisible'
+    elements.namedItem('multiplication').className = 'invisible'
+    elements.namedItem('addition-limit').className = 'invisible'
+    elements.namedItem('subtraction-limit').className = 'invisible'
+    elements.namedItem('multiplication-limit').className = 'invisible'
+    elements.namedItem('time').className = 'invisible'
+
+    //Make labels disappear
+    document.getElementById('time-label').style.display = 'none'
+    document.getElementById('addition-label').style.display = 'none'
+    document.getElementById('addition-limit-label').style.display = 'none'
+    document.getElementById('subtraction-label').style.display = 'none'
+    document.getElementById('subtraction-limit-label').style.display = 'none'
+    document.getElementById('multiplication-label').style.display = 'none'
+    document.getElementById('multiplication-limit-label').style.display = 'none'
+    document.getElementById('setup-submit-button').style.display = 'none'
 }
 
 //References
