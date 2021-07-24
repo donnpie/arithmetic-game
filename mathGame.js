@@ -120,15 +120,21 @@ function clickBtn1(e){
             //Show post game screen
             document.getElementById('post-game-form').className="visible"
             document.getElementById('table').className="visible"
+            btn3.className = "visible"
 
-            //print table contents
+            //print results table
             let tableBodyHtml = ""
+            let score = 0
+            const correct = 2
+            const incorrect = -1
             for (let result of results) {
                 let calc = result.arg1 + " " + result.operator + " " + result.arg2
                 let html = `<tr><td>${calc}</td><td>${result.correctAnswer}</td><td>${result.userAnswer}</td><td>${result.status}</td></tr>`
                 tableBodyHtml += html
+                score += result.status === "Correct" ? correct : incorrect
             }
             document.getElementById('table-body').innerHTML = tableBodyHtml
+            document.getElementById('score').innerText = "Your score:" + score
 
         }
     }, 1000)
@@ -144,8 +150,8 @@ function clickBtn1(e){
     limit = getLimit(operator, addLimit, subtractLimit, multiplyLimit)
     
     //Pick the arguments based on operation's upper limit
-    let arg1 = Math.floor(Math.random()*limit)
-    let arg2 = Math.floor(Math.random()*limit)
+    let arg1 = 2 + Math.floor(Math.random()*(limit - 2))
+    let arg2 = 2 + Math.floor(Math.random()*(limit - 2))
     
     //Calculate the answer
     correctAnswer = calculateAnswer(operator, arg1, arg2)
@@ -161,6 +167,7 @@ function clickBtn2(e){
     //Get the user's answer
     let elements = e.target.elements
     let userAnswer = parseInt(elements.namedItem('answer-input').value)
+    elements.namedItem('answer-input').value = ""
     validateField(userAnswer, "Please enter answer")
 
     //add to solution arrray
@@ -186,11 +193,12 @@ function clickBtn2(e){
 function clickBtn3(){
     //User clicks button to move away from post game screen
     //e.preventDefault()
-    state = "postGame"
-    console.log("state is " + state)
-    btn1.className = "btn-visible"
-    btn2.className = "btn-invisible"
-    btn3.className = "btn-invisible"
+    // state = "postGame"
+    // console.log("state is " + state)
+    // btn1.className = "btn-visible"
+    // btn2.className = "btn-invisible"
+    // btn3.className = "btn-invisible"
+    location.reload()
 }
 
 //Helper functions
@@ -330,3 +338,4 @@ function hideGameForm() {
 //https://developer.mozilla.org/en-US/docs/Web/API/HTMLCollection
 //https://stackoverflow.com/questions/10857393/how-to-make-label-visible-invisible/10857429
 //https://stackoverflow.com/questions/6345577/clearinterval-is-not-stopping-setinterval-firefox-extension-development
+//https://www.w3schools.com/jsref/met_loc_reload.asp

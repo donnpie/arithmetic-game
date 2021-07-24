@@ -22,7 +22,7 @@
                 </label>
                 <label for="addition-limit" id="addition-limit-label">
                     Number limit:
-                    <input type="number" name="addition-limit" value="100" min="2" max="1000">
+                    <input type="number" name="addition-limit" value="50" min="2" max="1000">
                 </label>
             </div>
             <div>
@@ -63,7 +63,7 @@
         <div  class="invisible" id="post-game-form">
             <div id="post-game-header" >
                 <h1>Your results</h1>
-                <h1>Your score:</h1>
+                <h1 id="score">Your score:</h1>
             </div>
             <table class="invisible" id="table">
                 <thead>
@@ -81,7 +81,7 @@
             </table>
 
         </div>
-        <button id="btn3" class="btn-invisible" onclick="clickBtn3()">Button 3</button>
+        <button id="btn3" class="btn-invisible" onclick="clickBtn3()">Play again</button>
 
 
 
