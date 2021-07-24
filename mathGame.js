@@ -97,18 +97,8 @@ function clickBtn1(e){
             btn3.className = "visible"
 
             //print results table
-            let tableBodyHtml = ""
-            let score = 0
-            const correct = 2
-            const incorrect = -1
-            for (let result of results) {
-                let calc = result.arg1 + " " + result.operator + " " + result.arg2
-                let html = `<tr><td>${calc}</td><td>${result.correctAnswer}</td><td>${result.userAnswer}</td><td>${result.status}</td></tr>`
-                tableBodyHtml += html
-                score += result.status === "Correct" ? correct : incorrect
-            }
-            document.getElementById('table-body').innerHTML = tableBodyHtml
-            document.getElementById('score').innerText = "Your score:" + score
+            printResultsTable(results)
+
 
         }
     }, 1000)
@@ -281,6 +271,21 @@ function hideInputform(elements) {
     document.getElementById('multiplication-label').style.display = 'none'
     document.getElementById('multiplication-limit-label').style.display = 'none'
     document.getElementById('setup-submit-button').style.display = 'none'
+}
+
+function  printResultsTable(results) {   
+    let tableBodyHtml = ""
+    let score = 0
+    const correct = 2
+    const incorrect = -1
+    for (let result of results) {
+        let calc = result.arg1 + " " + result.operator + " " + result.arg2
+        let html = `<tr><td>${calc}</td><td>${result.correctAnswer}</td><td>${result.userAnswer}</td><td>${result.status}</td></tr>`
+        tableBodyHtml += html
+        score += result.status === "Correct" ? correct : incorrect
+    }
+    document.getElementById('table-body').innerHTML = tableBodyHtml
+    document.getElementById('score').innerText = "Your score:" + score
 }
 
 //References
