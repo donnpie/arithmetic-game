@@ -110,8 +110,6 @@ function clickBtn1(e){
 
     //Show the first calculation and allow the user to enter answer
     showFirstCalculation()
-
-
 }
 
 function clickBtn2(e){
@@ -295,7 +293,6 @@ function  printResultsTable(results) {
     document.getElementById('table-body').innerHTML = tableBodyHtml
     document.getElementById('score').innerText = "Your score:" + score
 }
-
 
 //References
 //https://stackoverflow.com/questions/1947263/using-an-html-button-to-call-a-javascript-function
